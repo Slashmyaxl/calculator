@@ -1,1 +1,3 @@
 # calculator
+
+This webpage will consist of a calculator that is able to do basic functions of arithmetic (i.e. add, subtract, multiply, divide) as assigned according to the final project of TOP's "Fundamentals" curriculum. I will utilize a "div" of fixed size and thus arrange the buttons using flexbox and flex wrapping. Pertaining to interactivity, I will utilize the power of arrays in my JavaScript code.
