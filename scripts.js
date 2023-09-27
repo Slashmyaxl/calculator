@@ -10,35 +10,23 @@ let firstOperand = '';
 let operator = '';
 let secondOperand = '';
 
+const add = (a, b) => +a + +b;
 
-const add = function(a, b) {
-    return +a + +b;
-}
+const subtract = (a, b) => a - b;
 
-const subtract = function(a, b) {
-    return a - b;
-}
+const multiply = (a, b) => a * b;
 
-const multiply = function(a, b) {
-    return a * b;
-}
-
-const divide = function(a, b) {
-    if (b == 0) {
-        alert('I am but a simple calculator. Please define my denominator.');
-        return;
-    } return a / b;
-}
+const divide = (a, b) => a / b;
 
 function operate(a, operation, b) {
     switch (operation) {
-        case 'add':
+        case ' + ':
             return add(a, b);
-        case 'subtract':
+        case ' - ':
             return subtract(a, b);
-        case 'multiply':
+        case ' * ':
             return multiply(a, b);
-        case 'divide':
+        case ' / ':
             return divide(a, b);
     }
 }
@@ -54,37 +42,56 @@ digits.forEach((button) => {
 operators.forEach((button) => {
     button.addEventListener('click', () => {
         const operand = entry.textContent;
-        
-        if (firstOperand) {
+
+        if (operator === ' / ' && operand === '0') {
+            alert('I am but a simple calculator. Please define my denominator.');
+            entry.textContent = '';
+            secondOperand = '';
+            return;
+        }
+
+        if (firstOperand && operand != '') {
+
+            if (operator) {
             secondOperand = operand;
+            secondOperand = parseInt(secondOperand);
 
             console.log(`Operand1: ${firstOperand}`)
             console.log(`Operator: ${operator}`)
             console.log(`Operand2: ${secondOperand}`)
             
-
-           
             let result = operate(firstOperand, operator, secondOperand);
+            result = parseFloat(result.toFixed(3));
             firstOperand = result;
-            operator = button.id;
+            operator = button.value;
             entry.textContent = operand.slice(0, 0);
             secondOperand = '';
-            prevEntry.textContent = `${firstOperand}${button.value}`;
+            prevEntry.textContent = `${result}${operator}`;
 
+            console.log(`Result: ${result}`)
             console.log(`Operand1: ${firstOperand}`)
             console.log(`Operator: ${operator}`)
             console.log(`Operand2: ${secondOperand}`)
-            console.log(`Result: ${result}`)
+            } else {
+                operator = button.value;
+                firstOperand = entry.textContent;
+                prevEntry.textContent = `${firstOperand}${operator}`;
+                entry.textContent = operand.slice(0, 0);
+            }
+            
+        } else if (firstOperand && operand == '') {
+            operator = button.value;
+            prevEntry.textContent = `${firstOperand}${operator}`;
         } else {
             
-            firstOperand = operand;
+            firstOperand = entry.textContent;
             prevEntry.textContent = `${operand}${button.value}`;
-            operator = button.id;
+            operator = button.value;
             entry.textContent = operand.slice(0, 0);
 
-            console.log(`Operand1: ${firstOperand}`)
-            console.log(`Operator: ${operator}`)
-            console.log(`Operand2: ${secondOperand}`)
+            console.log(`Operand1: ${firstOperand}`);
+            console.log(`Operator: ${operator}`);
+            console.log(`Operand2: ${secondOperand}`);
         };
         
     });
@@ -103,14 +110,48 @@ clrBtn.addEventListener('click', () => {
 });
 
 delBtn.addEventListener('click', () => {
-    const str = result.textContent;
-    result.textContent = str.slice(0, -1);
+    const operand = entry.textContent;
+    entry.textContent = operand.slice(0, -1);
 });
 
-/* equalBtn.addEventListener('click', () => {
-    let operand = result.textContent;
+equalBtn.addEventListener('click', () => {
+    
+    if (firstOperand && operator) {
+        secondOperand = entry.textContent;
+        secondOperand = parseInt(secondOperand);
 
-    secondOperand = operand;
-    prevEntry.textContent += `${operand}${equalBtn.value}`;
-    result.textContent = operate(firstOperand, operator, secondOperand);
+        if (operator === ' / ' && secondOperand === 0) {
+            alert('I am but a simple calculator. Please define my denominator.');
+            entry.textContent = '';
+            secondOperand = '';
+            return;
+        }
+
+        console.log(`Operand1: ${firstOperand}`)
+        console.log(`Operator: ${operator}`)
+        console.log(`Operand2: ${secondOperand}`)
+
+        prevEntry.textContent = `${firstOperand}${operator}${secondOperand} =`;
+        let result = operate(firstOperand, operator, secondOperand);
+        result = parseFloat(result.toFixed(3));
+        entry.textContent = result;
+        firstOperand = result;
+        secondOperand = ''
+        operator = '';
+
+        console.log(`Result: ${result}`)
+        console.log(`Operand1: ${firstOperand}`)
+        console.log(`Operator: ${operator}`)
+        console.log(`Operand2: ${secondOperand}`)
+        
+
+    } else {
+        firstOperand = entry.textContent;
+        prevEntry.textContent = `${firstOperand} =`;
+        
+
+        console.log(`Operand1: ${firstOperand}`)
+        console.log(`Operator: ${operator}`)
+        console.log(`Operand2: ${secondOperand}`)
+    }
 });
