@@ -5,46 +5,60 @@
 }
 
 :root {
-    font-size: 16px;
+    font-size: 22px;
     text-align: center;
 }
 
 body {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    margin: 2% auto 0;
 }
 
 .calculator {
     border: 1px solid #333;
     border-radius: 2%;
-    height: 424px;
+    min-height: 444px;
     width: 326px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 12px;
-    margin: 20px auto;
+    margin: 0 auto;
     background-color: #444;
 }
 
 .display {
     border: 1px solid hsl(170, 70%, 40%);
-    border-radius: 4%;
+    border-radius: 2%;
+    font-size: 1.2rem;
     width: 96%;
-    height: 18%;
+    height: 23%;
     margin: 0 auto 6px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #ccc;
+    text-align: right;
+    padding: 4px 12px;
+}
+
+#current-entry {
+    font-size: 2rem;
 }
 
 .button-container {
-    margin: 0px auto;
+    margin: 2px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    height: 80%;
+    height: 77%;
     width: 98%;
 }
 
@@ -52,11 +66,19 @@ button {
     border: 1px solid #222;
     border-radius: 4%;
     margin: 4px;
-    width: 21%;
-    height: 17%;
+    width: 22%;
+    height: 17.6%;
     font-size: 1.5rem;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 button#delete, button#clear {
-    width: 45%;
+    width: 46.8%;
+}
+
+footer {
+    padding: 4px;
 }
